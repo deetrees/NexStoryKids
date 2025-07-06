@@ -1,0 +1,12 @@
+[project]
+name = "nexstory-agents"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "acp-sdk>=0.0.6",
+    "crewai[tools]>=0.140.0",
+    "nest-asyncio>=1.6.0",
+    "python-dotenv>=1.1.1",
+]
