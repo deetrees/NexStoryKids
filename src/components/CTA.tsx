@@ -19,38 +19,38 @@ const CTA = () => {
         </div>
 
         <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          Start Creating
-          <span className="block">Amazing Stories Today</span>
+          Ready to Create
+          <span className="block">Your Child's Next Favorite Book?</span>
         </h2>
         
         <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-          Join thousands of parents and educators who are already creating personalized, 
-          illustrated storybooks that spark imagination and joy in young readers.
+          Join thousands of families who have discovered the magic of personalized storytelling. 
+          Your child's adventure is just one click away!
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
           <button className="group bg-white text-purple-600 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transition-all duration-300 flex items-center space-x-2 hover:scale-105">
             <BookOpen className="w-5 h-5" />
-            <span>Create Your First Story</span>
+            <span>Start Your Magical Story</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
           <button className="text-white hover:text-white/80 font-semibold text-lg underline underline-offset-4 hover:underline-offset-8 transition-all">
-            See Example Stories
+            Watch Demo
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white/90">
           <div className="text-center">
-            <div className="text-3xl font-bold mb-2">5+</div>
-            <div className="text-sm uppercase tracking-wide">AI Agents Working</div>
+            <div className="text-3xl font-bold mb-2">10,000+</div>
+            <div className="text-sm uppercase tracking-wide">Stories Created</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold mb-2">&lt;5min</div>
-            <div className="text-sm uppercase tracking-wide">Story Generation</div>
+            <div className="text-sm uppercase tracking-wide">Average Creation Time</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold mb-2">100%</div>
-            <div className="text-sm uppercase tracking-wide">Child-Safe Content</div>
+            <div className="text-sm uppercase tracking-wide">Safe & Private</div>
           </div>
         </div>
       </div>

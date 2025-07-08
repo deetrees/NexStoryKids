@@ -15,8 +15,8 @@ const Footer = () => {
               <span className="text-2xl font-bold">NexStory</span>
             </div>
             <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-              Creating magical, personalized children's stories with the power of advanced AI. 
-              Spark imagination, foster learning, and create lasting memories.
+              Bringing your child's imagination to life with AI-powered storybooks. 
+              Personalized adventures that spark joy and create lasting memories.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -56,9 +56,10 @@ const Footer = () => {
 
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
-              © 2025 NexStory. All rights reserved.
-            </p>
+            <div className="text-gray-400 text-sm">
+              <p className="mb-2">© 2025 NexStoryKids.com. All rights reserved.</p>
+              <p className="text-xs">Powered by OpenAI, Anthropic, and AWS</p>
+            </div>
             <p className="text-gray-400 text-sm flex items-center mt-4 md:mt-0">
               Made with <Heart className="w-4 h-4 text-red-500 mx-1" /> for young readers everywhere
             </p>
