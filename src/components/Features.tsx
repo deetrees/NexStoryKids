@@ -41,7 +41,7 @@ const Features = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <div key={index} className="group bg-white rounded-3xl p-8 border-4 border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div key={index} className="group bg-white rounded-3xl p-8 border-4 border-rainbow shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 hover:animate-wiggle">
               <div className="text-center">
                 <div className="text-6xl mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
@@ -53,6 +53,14 @@ const Features = () => {
         
         <div className="text-center mt-12">
           <div className="bg-white rounded-3xl p-8 shadow-lg border-4 border-rainbow max-w-4xl mx-auto">
+            <div className="flex justify-center space-x-4 mb-6">
+              <div className="bg-green-100 px-4 py-2 rounded-full border-2 border-green-400">
+                <span className="text-green-700 font-bold text-sm">🛡️ COPPA COMPLIANT</span>
+              </div>
+              <div className="bg-blue-100 px-4 py-2 rounded-full border-2 border-blue-400">
+                <span className="text-blue-700 font-bold text-sm">🤖 100% AI-POWERED</span>
+              </div>
+            </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">What Kids Say! 😊</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="text-center">

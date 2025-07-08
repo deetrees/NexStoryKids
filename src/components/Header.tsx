@@ -28,7 +28,7 @@ const Header = () => {
               Technology
             </a>
             <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium">
-              Get Started
+              START YOUR STORY! 🚀
             </button>
           </nav>
 
@@ -53,7 +53,7 @@ const Header = () => {
                 Technology
               </a>
               <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium w-fit">
-                Get Started
+                START YOUR STORY! 🚀
               </button>
             </nav>
           </div>

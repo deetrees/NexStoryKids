@@ -35,7 +35,7 @@ const CTA = () => {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
           <button className="group bg-white text-purple-600 px-10 py-5 rounded-full text-2xl font-bold hover:shadow-2xl transition-all duration-300 flex items-center space-x-3 hover:scale-105 border-4 border-yellow-300">
             <span className="text-2xl">🚀</span>
-            <span>Start My Story!</span>
+            <span>START YOUR MAGICAL STORY!</span>
             <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
           </button>
         </div>

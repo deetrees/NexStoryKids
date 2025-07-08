@@ -52,8 +52,8 @@ const HowItWorks = () => {
         <div className="text-center mt-12">
           <div className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-3xl p-8 max-w-2xl mx-auto border-4 border-purple-200">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">Ready for Your Adventure? 🚀</h3>
-            <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-10 py-4 rounded-full text-xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-4 border-white">
-              🌟 Make My Story Now! 🌟
+            <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-12 py-5 rounded-full text-2xl font-bold hover:shadow-xl transition-all duration-300 hover:scale-105 border-4 border-white animate-pulse hover:animate-none">
+              🌟 START YOUR MAGICAL STORY! 🌟
             </button>
           </div>
         </div>
