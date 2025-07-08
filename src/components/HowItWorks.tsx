@@ -74,11 +74,3 @@ const HowItWorks = () => {
 };
 
 export default HowItWorks;
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default HowItWorks;
