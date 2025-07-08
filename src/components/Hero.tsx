@@ -92,27 +92,3 @@ const Hero = () => {
 };
 
 export default Hero;
-              Watch Demo
-            </button>
-          </div>
-          
-          <div className="relative max-w-4xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl border border-purple-100 p-8">
-              <div className="aspect-video bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Sparkles className="w-8 h-8 text-white" />
-                  </div>
-                  <p className="text-gray-600 font-medium">Interactive Story Preview</p>
-                  <p className="text-sm text-gray-500 mt-2">See your personalized story come to life</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Hero;
