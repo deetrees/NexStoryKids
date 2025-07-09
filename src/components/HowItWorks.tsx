@@ -125,9 +125,9 @@ const HowItWorks = () => {
       </div>
       </section>
       
-      {showStoryCreator && (
+      {showStoryCreator ? (
         <StoryCreator onClose={() => setShowStoryCreator(false)} />
-      )}
+      ) : null}
     </>
   );
 };
