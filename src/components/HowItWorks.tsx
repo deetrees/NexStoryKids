@@ -1,7 +1,10 @@
 import React from 'react';
+import StoryCreator from './StoryCreator';
 import { MessageSquare, Sparkles, BookOpen } from 'lucide-react';
 
 const HowItWorks = () => {
+  const [showStoryCreator, setShowStoryCreator] = React.useState(false);
+
   const steps = [
     {
       icon: "💬",
@@ -90,7 +93,10 @@ const HowItWorks = () => {
             <h3 className="text-4xl font-bold text-gray-900 mb-6 animate-bounce">Ready for Your Adventure? 🚀</h3>
             <p className="text-xl text-gray-700 mb-8 font-medium animate-pulse">Join over 50,000 kids who already have their magical stories!</p>
             
-            <button className="bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white px-16 py-6 rounded-full text-3xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-110 border-6 border-white animate-pulse hover:animate-bounce relative overflow-hidden group">
+            <button 
+              onClick={() => setShowStoryCreator(true)}
+              className="bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white px-16 py-6 rounded-full text-3xl font-bold hover:shadow-2xl transition-all duration-300 hover:scale-110 border-6 border-white animate-pulse hover:animate-bounce relative overflow-hidden group"
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <span className="relative z-10 flex items-center space-x-4">
                 <span className="text-4xl animate-spin">🌟</span>
@@ -116,7 +122,12 @@ const HowItWorks = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+      
+      {showStoryCreator && (
+        <StoryCreator onClose={() => setShowStoryCreator(false)} />
+      )}
+    </>
   );
 };
 

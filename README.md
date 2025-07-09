@@ -1,8 +1,51 @@
-NexStory: AI-Powered Personalized Storybook GeneratorNexStory is a sophisticated, multi-agent AI system designed to create unique, personalized, and illustrated children's storybooks on demand. By leveraging a crew of specialized AI agents, each powered by a best-in-class language model, NexStory transforms a simple user prompt into a complete, ready-to-read digital storybook.This project serves as a powerful prototype for a full-fledged web application, complete with a backend server running on the Agent Communication Protocol (ACP), ready for frontend integration and future expansion with e-commerce and print-on-demand capabilities.✨ FeaturesMulti-Agent Workflow: A team of five specialized AI agents (Interviewer, Creator, Illustrator, Compliance Officer, and Assembler) collaborate in a sequential workflow to produce the final story.Strategic Multi-Model Backend: Utilizes the best AI model for each specific task:GPT-4o for robust user interaction and compliance checks.Claude 3 Opus for high-quality, creative story writing.Gemini 2.5 Flash for creative reasoning and prompt generation.Custom Tool Integration: Features custom-built tools that allow agents to perform specialized tasks, such as calling the Replicate API to generate high-quality illustrations using the flux-kontext-max model.Built-in Safety and Compliance: Includes a dedicated agent to review all generated content for child safety, privacy (COPPA), and age-appropriateness.ACP-Compliant Server: The entire crewAI workflow is wrapped in a server that speaks the Agent Communication Protocol, making it ready for integration with other AI systems or a web-based frontend.Secure Configuration: All API keys and sensitive credentials are managed securely using a .env file.💻 Technology StackOrchestration: CrewAIServer Protocol: Agent Communication Protocol (ACP)Package Management: uvLanguage Models: OpenAI GPT-4o, Anthropic Claude 3 Opus, Google Gemini 2.5 FlashImage Generation: Replicate (using flux-kontext-max)Cloud Services: AWS Rekognition (for face detection tool)Primary Language: Python🚀 Getting StartedFollow these instructions to set up and run the NexStory server on your local machine.1. PrerequisitesPython 3.11+uv installed (pip install uv)API keys for:OpenAIAnthropicGoogle AI StudioReplicateAmazon Web Services (AWS)2. InstallationClone the repository:git clone https://github.com/your-username/nexstory-final.git
-cd nexstory-final
-Initialize the uv environment:uv init
-Activate the virtual environment:source .venv/bin/activate
-Create and configure your .env file:Create a file named .env in the root of the project.Add your secret API keys to this file. Do not use quotes.# .env file
+# NexStory: AI-Powered Personalized Storybook Generator
+
+NexStory is a sophisticated, multi-agent AI system designed to create unique, personalized, and illustrated children's storybooks on demand. This project combines a powerful Python backend with a beautiful React frontend to deliver magical storytelling experiences.
+
+## 🏗️ Project Structure
+
+This repository contains both the frontend and backend components:
+
+- **Frontend**: React + TypeScript landing page with interactive story creator
+- **Backend**: Python ACP server with CrewAI multi-agent workflow
+
+## ✨ Features
+
+### Frontend (React Landing Page)
+- 🎨 Beautiful, kid-friendly interface with animations
+- 📱 Responsive design for all devices  
+- 🎪 Interactive story creation wizard
+- 🌈 Playful animations and micro-interactions
+- 🔗 Direct integration with backend API
+
+### Backend (Python ACP Server)
+- 🤖 Multi-Agent Workflow: Five specialized AI agents working together
+- 🧠 Strategic Multi-Model Backend: GPT-4o, Claude 3 Opus, Gemini 2.5 Flash
+- 🎨 Custom Tool Integration: Replicate API for illustrations
+- 🛡️ Built-in Safety and Compliance: COPPA compliant content review
+- 🔌 ACP-Compliant Server: Ready for integration
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ (for frontend)
+- Python 3.11+ (for backend)
+- uv package manager (`pip install uv`)
+- API keys for: OpenAI, Anthropic, Google AI Studio, Replicate, AWS
+
+### Backend Setup
+
+1. **Clone and setup Python environment:**
+```bash
+git clone https://github.com/your-username/nexstory-agents.git
+cd nexstory-agents
+uv init
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+2. **Create .env file with your API keys:**
+```bash
+# .env file
 OPENAI_API_KEY=sk-...
 ANTHROPIC_API_KEY=sk-ant-...
 GOOGLE_API_KEY=AIza...
@@ -10,7 +53,79 @@ REPLICATE_API_TOKEN=r8_...
 AWS_ACCESS_KEY_ID=AKIA...
 AWS_SECRET_ACCESS_KEY=...
 AWS_DEFAULT_REGION=us-east-1
-Install all dependencies:uv will read the pyproject.toml file and install everything needed.uv sync
-3. Running the ApplicationThe project runs as a client-server application. You will need two terminal windows.In Terminal 1 - Start the Server:Make sure your virtual environment is activated (source .venv/bin/activate) and run:python crew_agent_server.py
-You should see a message indicating that the NexStory ACP Server is running on http://localhost:8000.In Terminal 2 - Run the Client:In a new terminal window, activate the virtual environment (source .venv/bin/activate) and run:python client.py
-The client will prompt you for a story idea. Enter your request, and you will see the real-time output from the agent crew as it works to create your story.🗺️ Future RoadmapFrontend Integration: Connect the server to the nexstorykids.com landing page to create a full-stack web application.Stripe Integration: Implement a payment gateway to monetize the storybook creation service.Print-on-Demand: Integrate with a service like Lulu to allow users to order physical copies of their personalized books.User Accounts: Build a system for users to save, edit, and manage their created stories.
+```
+
+3. **Install dependencies and start server:**
+```bash
+uv sync
+python crew_agent_server.py
+```
+
+The server will start on `http://localhost:8000`
+
+### Frontend Setup
+
+1. **Install dependencies:**
+```bash
+npm install
+```
+
+2. **Start development server:**
+```bash
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173`
+
+## 🔗 Integration
+
+The frontend automatically connects to the backend server running on `localhost:8000`. When users click "START YOUR STORY!", they'll go through an interactive wizard that:
+
+1. Collects child's name and age
+2. Gathers interests and preferences  
+3. Lets them choose a story theme
+4. Sends the request to the backend crew
+5. Displays the generated story with illustrations
+
+## 🧪 Testing
+
+Test the backend independently:
+```bash
+python test_acp_client.py
+```
+
+## 🗺️ Future Roadmap
+
+- [ ] User authentication and story saving
+- [ ] Stripe payment integration
+- [ ] Print-on-demand service integration
+- [ ] Story sharing and social features
+- [ ] Mobile app development
+- [ ] Advanced illustration customization
+
+## 💻 Technology Stack
+
+**Frontend:**
+- React 18 + TypeScript
+- Tailwind CSS for styling
+- Lucide React for icons
+- Axios for API calls
+
+**Backend:**
+- Python with CrewAI orchestration
+- Agent Communication Protocol (ACP)
+- OpenAI GPT-4o, Anthropic Claude 3 Opus, Google Gemini 2.5 Flash
+- Replicate for image generation
+- AWS services for additional tools
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+MIT License - see LICENSE file for details

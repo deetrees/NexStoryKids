@@ -1,11 +1,14 @@
 import React from 'react';
+import StoryCreator from './StoryCreator';
 import { BookOpen, Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [showStoryCreator, setShowStoryCreator] = React.useState(false);
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50">
+    <>
+      <header className="bg-white/80 backdrop-blur-md border-b border-purple-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-2">
@@ -27,7 +30,10 @@ const Header = () => {
             <a href="#technology" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
               Technology
             </a>
-            <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium">
+            <button 
+              onClick={() => setShowStoryCreator(true)}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium"
+            >
               START YOUR STORY! 🚀
             </button>
           </nav>
@@ -52,14 +58,22 @@ const Header = () => {
               <a href="#technology" className="text-gray-700 hover:text-purple-600 transition-colors font-medium">
                 Technology
               </a>
-              <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium w-fit">
+              <button 
+                onClick={() => setShowStoryCreator(true)}
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full hover:shadow-lg transition-all duration-300 font-medium w-fit"
+              >
                 START YOUR STORY! 🚀
               </button>
             </nav>
           </div>
         )}
       </div>
-    </header>
+      </header>
+      
+      {showStoryCreator && (
+        <StoryCreator onClose={() => setShowStoryCreator(false)} />
+      )}
+    </>
   );
 };
 

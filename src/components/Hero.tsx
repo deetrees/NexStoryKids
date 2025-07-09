@@ -1,9 +1,13 @@
 import React from 'react';
+import StoryCreator from './StoryCreator';
 import { Sparkles, ArrowRight, Play, Star, Heart, Zap } from 'lucide-react';
 
 const Hero = () => {
+  const [showStoryCreator, setShowStoryCreator] = React.useState(false);
+
   return (
-    <section className="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-br from-yellow-200 via-pink-200 via-purple-200 to-blue-200">
+    <>
+      <section className="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-br from-yellow-200 via-pink-200 via-purple-200 to-blue-200">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating shapes */}
@@ -57,7 +61,10 @@ const Hero = () => {
           
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-            <button className="group relative bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white px-12 py-6 rounded-full text-3xl font-bold hover:shadow-2xl transition-all duration-300 flex items-center space-x-4 hover:scale-110 border-4 border-white animate-pulse hover:animate-bounce overflow-hidden">
+            <button 
+              onClick={() => setShowStoryCreator(true)}
+              className="group relative bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white px-12 py-6 rounded-full text-3xl font-bold hover:shadow-2xl transition-all duration-300 flex items-center space-x-4 hover:scale-110 border-4 border-white animate-pulse hover:animate-bounce overflow-hidden"
+            >
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <span className="relative z-10 text-4xl animate-spin">🚀</span>
               <span className="relative z-10">START MY ADVENTURE!</span>
@@ -170,7 +177,12 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+      
+      {showStoryCreator && (
+        <StoryCreator onClose={() => setShowStoryCreator(false)} />
+      )}
+    </>
   );
 };
 
