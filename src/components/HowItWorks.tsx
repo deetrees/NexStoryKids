@@ -30,7 +30,8 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden">
+    <>
+      <section id="how-it-works" className="py-16 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 left-20 text-6xl opacity-30 animate-spin">⚙️</div>
