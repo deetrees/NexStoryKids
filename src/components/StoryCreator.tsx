@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Loader2, BookOpen, Star } from 'lucide-react';
+import { Sparkles, Loader2, BookOpen, Star, Camera, Upload, X } from 'lucide-react';
 import { StoryService } from '../services/storyService';
 
 interface StoryCreatorProps {
@@ -11,12 +11,46 @@ const StoryCreator: React.FC<StoryCreatorProps> = ({ onClose }) => {
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('');
   const [interests, setInterests] = useState('');
+  const [uploadedPhoto, setUploadedPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [storyTheme, setStoryTheme] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedStory, setGeneratedStory] = useState('');
   const [error, setError] = useState('');
 
   const storyService = StoryService.getInstance();
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please upload an image file (JPG, PNG, etc.)');
+        return;
+      }
+      
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image must be smaller than 5MB');
+        return;
+      }
+      
+      setUploadedPhoto(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPhotoPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+      setError('');
+    }
+  };
+
+  const handleRemovePhoto = () => {
+    setUploadedPhoto(null);
+    setPhotoPreview(null);
+  };
 
   const handleGenerateStory = async () => {
     setIsGenerating(true);
@@ -87,7 +121,7 @@ const StoryCreator: React.FC<StoryCreatorProps> = ({ onClose }) => {
                 Back
               </button>
               <button
-                onClick={() => setStep(3)}
+                onClick={() => setStep(2.5)}
                 disabled={!interests}
                 className="bg-gradient-to-r from-blue-500 to-green-500 text-white px-12 py-4 rounded-full text-2xl font-bold hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
@@ -97,14 +131,80 @@ const StoryCreator: React.FC<StoryCreatorProps> = ({ onClose }) => {
           </div>
         );
 
+      case 2.5:
+        return (
+          <div className="text-center space-y-6">
+            <div className="text-6xl animate-bounce">📸</div>
+            <h2 className="text-3xl font-bold text-gray-900">Add {childName}'s Photo (Optional)</h2>
+            <p className="text-lg text-gray-600 mb-6">
+              Upload a photo to make {childName} the star of the story! This is completely optional.
+            </p>
+            
+            {!photoPreview ? (
+              <div className="relative">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                  id="photo-upload"
+                />
+                <label
+                  htmlFor="photo-upload"
+                  className="cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-6 rounded-3xl text-xl font-bold hover:scale-105 transition-all flex items-center justify-center space-x-3 max-w-md mx-auto border-4 border-dashed border-purple-300 hover:border-purple-500"
+                >
+                  <Upload className="w-8 h-8" />
+                  <span>Upload Photo</span>
+                </label>
+                <p className="text-sm text-gray-500 mt-2">
+                  JPG, PNG, or GIF • Max 5MB
+                </p>
+              </div>
+            ) : (
+              <div className="relative max-w-md mx-auto">
+                <img
+                  src={photoPreview}
+                  alt="Preview"
+                  className="w-full h-64 object-cover rounded-3xl border-4 border-purple-300 shadow-lg"
+                />
+                <button
+                  onClick={handleRemovePhoto}
+                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-2 hover:bg-red-600 transition-all"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+                <p className="text-sm text-green-600 mt-2 font-medium">
+                  ✅ Photo uploaded! {childName} will be the star of the story!
+                </p>
+              </div>
+            )}
+            
+            <div className="flex space-x-4 justify-center">
+              <button
+                onClick={() => setStep(2)}
+                className="bg-gray-300 text-gray-700 px-8 py-3 rounded-full text-xl font-bold hover:scale-105 transition-all"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => setStep(3)}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-12 py-4 rounded-full text-2xl font-bold hover:scale-105 transition-all flex items-center space-x-2"
+              >
+                <Camera className="w-6 h-6" />
+                <span>Continue</span>
+              </button>
+            </div>
+          </div>
+        );
+
       case 3:
         const themes = [
-          { name: 'Magical Adventure', emoji: '🦄', color: 'from-purple-400 to-pink-400' },
-          { name: 'Space Explorer', emoji: '🚀', color: 'from-blue-400 to-purple-400' },
-          { name: 'Animal Friends', emoji: '🐾', color: 'from-green-400 to-blue-400' },
-          { name: 'Superhero Story', emoji: '🦸‍♀️', color: 'from-red-400 to-yellow-400' },
-          { name: 'Underwater World', emoji: '🐠', color: 'from-blue-400 to-teal-400' },
-          { name: 'Fairy Tale', emoji: '🏰', color: 'from-pink-400 to-purple-400' }
+          { name: 'Magical Adventure', icon: '/themes/magical, adventure.png', color: 'from-purple-400 to-pink-400' },
+          { name: 'Space Explorer', icon: '/themes/space adventure.png', color: 'from-blue-400 to-purple-400' },
+          { name: 'Animal Friends', icon: '/themes/furrypets.png', color: 'from-green-400 to-blue-400' },
+          { name: 'Superhero Story', icon: '/themes/superhero.png', color: 'from-red-400 to-yellow-400' },
+          { name: 'Underwater World', icon: '/themes/underthesea.png', color: 'from-blue-400 to-teal-400' },
+          { name: 'Fairy Tale', icon: '/themes/fairlytale.png', color: 'from-pink-400 to-purple-400' }
         ];
 
         return (
@@ -122,14 +222,34 @@ const StoryCreator: React.FC<StoryCreatorProps> = ({ onClose }) => {
                       : 'border-gray-300 bg-white hover:border-purple-300'
                   }`}
                 >
-                  <div className="text-4xl mb-2">{theme.emoji}</div>
+                  <div className="w-16 h-16 mx-auto mb-2 flex items-center justify-center">
+                    <img 
+                      src={theme.icon} 
+                      alt={theme.name}
+                      className="w-12 h-12 object-contain"
+                      onError={(e) => {
+                        // Fallback to emoji if image fails to load
+                        const fallbackEmojis: {[key: string]: string} = {
+                          'Magical Adventure': '🦄',
+                          'Space Explorer': '🚀', 
+                          'Animal Friends': '🐾',
+                          'Superhero Story': '🦸‍♀️',
+                          'Underwater World': '🐠',
+                          'Fairy Tale': '🏰'
+                        };
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.parentElement!.innerHTML = `<div class="text-4xl">${fallbackEmojis[theme.name] || '🎨'}</div>`;
+                      }}
+                    />
+                  </div>
                   <div className="font-bold text-lg">{theme.name}</div>
                 </button>
               ))}
             </div>
             <div className="flex space-x-4 justify-center">
               <button
-                onClick={() => setStep(2)}
+                onClick={() => setStep(2.5)}
                 className="bg-gray-300 text-gray-700 px-8 py-3 rounded-full text-xl font-bold hover:scale-105 transition-all"
               >
                 Back
@@ -180,6 +300,8 @@ const StoryCreator: React.FC<StoryCreatorProps> = ({ onClose }) => {
                   setChildName('');
                   setChildAge('');
                   setInterests('');
+                  setUploadedPhoto(null);
+                  setPhotoPreview(null);
                   setStoryTheme('');
                   setGeneratedStory('');
                 }}

@@ -1,0 +1,107 @@
+# tasks.yaml - Production-Ready Version
+
+gather_story_details:
+  description: >
+    Analyze and validate the provided story input data. Here is the input data: 
+    Child Name: {child_name}
+    Age: {age}
+    Themes/Interests: {themes}
+    Story Theme: {story_theme}
+    Source Photo URL: {source_photo_url}
+    Original Message: {message}
+    
+    Your job is to review this data, ensure it's complete and appropriate, and format it properly 
+    for the story creation process. Validate that all required fields are present and make any 
+    necessary adjustments for age-appropriateness.
+  expected_output: >
+    A validated and properly formatted JSON object containing all story details.
+    Example: 
+    {
+      "child_name": "Lily",
+      "age": 5,
+      "themes": ["unicorns", "space adventure"],
+      "source_photo_url": "https://path/to/user/photo.png",
+      "validated": true,
+      "story_style": "age_appropriate"
+    }
+  agent: story_interviewer
+
+validate_user_photo:
+  description: >
+    Using the source photo URL: {source_photo_url}, you MUST use your face detection tool to validate the image.
+    The image must contain exactly one, clear, appropriate human face.
+    This is a critical safety and quality check before any creative work begins.
+  expected_output: >
+    A confirmation message. If validation is successful, output: "Validation successful. Image contains one clear face."
+    If it fails, output a clear error message describing the problem (e.g., "Validation failed: No face detected," or "Validation failed: Multiple faces detected" ).
+    The entire process will halt if validation fails.
+  agent: compliance_officer
+  context:
+    - gather_story_details
+
+write_structured_story:
+  description: >
+    Using the validated details, write a creative, age-appropriate story for {child_name} (age {age}) 
+    who loves {themes}. The story theme should be {story_theme}.
+    You MUST structure the story into a series of pages, with each page containing a short paragraph of text.
+    This structure is essential for the illustrator to create one image per page.
+  expected_output: >
+    A JSON object containing the story, structured by pages.
+    Example:
+    {
+      "title": "Lily's Great Unicorn Adventure",
+      "pages": [
+        {"page": 1, "text": "Once upon a time, in a sparkly castle, lived a brave girl named Lily."},
+        {"page": 2, "text": "One day, her best friend, a magical unicorn named Sparklehoof, arrived with exciting news."},
+        {"page": 3, "text": "They were going on an adventure to the moon to have a picnic!"}
+      ]
+    }
+  agent: story_creator
+  context:
+    - gather_story_details
+    - validate_user_photo
+
+create_storybook_illustrations:
+  description: >
+    You must create one illustration for EACH page in the structured story from the previous step.
+    To ensure character consistency, you will perform a two-step process using your 'Generate Storybook Image' tool:
+    1. **Create a Reference Image:** First, call the tool using the original `source_photo_url` from the user. Use a neutral prompt like "Full body character sheet of the main character, cartoon style, plain background." This is your 'reference_image_url'.
+    2. **Generate Scene Images:** For each page in the story, call the tool again. This time, you MUST provide both the `reference_image_url` as the `source_image_url` AND a detailed `prompt` describing the scene from that page's text.
+  expected_output: >
+    An updated JSON object of the story, now including a unique `image_url` for each page.
+    Example:
+    {
+      "title": "Lily's Great Unicorn Adventure",
+      "pages": [
+        {"page": 1, "text": "...", "image_url": "https://path/to/image1.png"},
+        {"page": 2, "text": "...", "image_url": "https://path/to/image2.png"},
+        {"page": 3, "text": "...", "image_url": "https://path/to/image3.png"}
+      ]
+    }
+  agent: illustrator
+  context:
+    - write_structured_story
+
+final_content_review:
+  description: >
+    Perform a final review of the complete storybook data, which includes all story text and all generated image URLs.
+    Ensure all text is appropriate and that all images are safe, high-quality, and adhere to our platform's policies.
+    This is the final quality gate before the product is assembled.
+  expected_output: >
+    A final compliance report. If all is well, it MUST state "Final review complete. All content is approved."
+    If any issues are found, it must provide a detailed list of the problems.
+  agent: compliance_officer
+  context:
+    - create_storybook_illustrations
+
+assemble_final_storybook:
+  description: >
+    Using the fully approved storybook data (with text and image URLs for each page ), assemble the final, polished product.
+    Format the content into a beautiful, user-facing HTML or Markdown document.
+    For each page, display the generated image and the corresponding story text.
+  expected_output: >
+    The complete, final storybook as a single, formatted HTML or Markdown string, ready to be saved as a file or displayed to the user.
+  agent: assembler
+  context:
+    - final_content_review
+

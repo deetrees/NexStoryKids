@@ -1,34 +1,48 @@
-from acp.server.highlevel import Server, Context
-from pydantic import BaseModel
+#!/usr/bin/env python3
+"""
+Simple FastAPI server to handle story creation requests
+"""
+import asyncio
 import sys
 import os
-import asyncio
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import uvicorn
 
-# Import the crew from the local directory
+# Add the parent directory to the path to import crew
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from crew import crew
-import nest_asyncio
-nest_asyncio.apply()
 
-server = Server()
+app = FastAPI()
 
-class StoryInput(BaseModel):
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5174", "http://localhost:5173"],  # React dev server
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+class StoryRequest(BaseModel):
     message: str
 
-class StoryOutput(BaseModel):
+class StoryResponse(BaseModel):
     result: str
 
-@server.agent(
-    name="nexstory_crew",
-    description="This agent creates complete personalized children's stories with illustrations using a multi-agent crew.",
-    input=StoryInput,
-    output=StoryOutput
-)
-async def nexstory_crew_agent(input: StoryInput, ctx: Context) -> StoryOutput:
-    """Creates complete personalized children's stories with illustrations using a multi-agent crew."""
+@app.get("/health")
+async def health_check():
+    """Health check endpoint"""
+    return {"status": "healthy"}
+
+@app.post("/api/create-story")
+async def create_story(request: StoryRequest) -> StoryResponse:
+    """Create a story using the crew"""
     
     try:
         # Parse the user's message to extract story details
-        message = input.message
+        message = request.message
         
         # Extract story details from the message
         child_name = "Hero"  # Default
@@ -79,18 +93,19 @@ async def nexstory_crew_agent(input: StoryInput, ctx: Context) -> StoryOutput:
             "message": message
         }
         
+        print(f"Creating story with inputs: {crew_inputs}")
+        
         # Initialize and run the actual crew
         story_crew = crew()
         result = await story_crew.kickoff_async(inputs=crew_inputs)
         
-        return StoryOutput(result=str(result))
+        return StoryResponse(result=str(result))
         
     except Exception as e:
-        # Fallback to simple story if crew fails
-        return StoryOutput(result=f"Crew processing failed, using fallback: {str(e)[:100]}...")
+        print(f"Error creating story: {e}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Story creation failed: {str(e)}")
 
 if __name__ == "__main__":
-    import asyncio
-    # Run with SSE transport for HTTP access
-    asyncio.run(server.run_sse_async())
-
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -22,9 +22,7 @@ export class StoryService {
 
   async createStory(request: StoryRequest): Promise<StoryResponse> {
     try {
-      const response = await axios.post(`${API_BASE_URL}/agents/nexstory_crew/run`, {
-        input: request
-      }, {
+      const response = await axios.post(`${API_BASE_URL}/api/create-story`, request, {
         headers: {
           'Content-Type': 'application/json',
         },
